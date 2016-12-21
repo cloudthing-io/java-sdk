@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 
 public class EventPayload implements ICloudThingMessage {
 
+    private String eventId = "";
     private String payload = "";
 
     public String getPayload() {
@@ -16,6 +17,14 @@ public class EventPayload implements ICloudThingMessage {
 
     public void setPayload(String payload) {
         this.payload = payload;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 
     @Override

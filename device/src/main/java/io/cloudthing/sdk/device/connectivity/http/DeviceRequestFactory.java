@@ -1,10 +1,8 @@
 package io.cloudthing.sdk.device.connectivity.http;
 
 import com.google.common.io.BaseEncoding;
-import io.cloudthing.sdk.device.data.DataPayload;
+import io.cloudthing.sdk.device.data.ICloudThingMessage;
 import okhttp3.*;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -21,7 +19,7 @@ public abstract class DeviceRequestFactory {
     protected final String token;
     protected Callback listener;
 
-    private DataPayload data = new DataPayload();
+    protected ICloudThingMessage message;
 
     protected DeviceRequestFactory(String deviceId, String token, String tenant) {
         this.deviceId = deviceId;
@@ -30,7 +28,13 @@ public abstract class DeviceRequestFactory {
         initListeners();
     }
 
-    public abstract Request getRequest();
+    public Request getRequest() {
+        return new Request.Builder()
+                .url(getUrl())
+                .headers(generateHeaders())
+                .post(getRequestBody())
+                .build();
+    }
 
     protected void initListeners() {
         listener = new Callback() {
@@ -72,10 +76,7 @@ public abstract class DeviceRequestFactory {
         return "Basic " + base64;
     }
 
-    protected String getUrl() {
-        String urlTemplate = "https://%s.cloudthing.io:444/v1/%s/data";
-        return String.format(urlTemplate, tenant, deviceId);
-    }
+    protected abstract String getUrl();
 
     public Callback getListener() {
         return listener;
@@ -86,19 +87,7 @@ public abstract class DeviceRequestFactory {
     }
 
     protected RequestBody getRequestBody() {
-        return RequestBody.create(MediaType.parse("application/json"), data.toBytes());
-    }
-
-    public void clearData() {
-        data.clearData();
-    }
-
-    public void putData(String dataId, String dataValue) {
-        data.putData(dataId, dataValue);
-    }
-
-    public Map<String, String> getData() {
-        return data.getData();
+        return RequestBody.create(MediaType.parse("application/json"), message.toBytes());
     }
 
 }
