@@ -9,7 +9,7 @@ public class EventRequestFactory extends DeviceRequestFactory {
 
     private static final String URL_TEMPLATE = "https://%s.cloudthing.io:444/v1/%s/events/%s";
 
-    protected EventRequestFactory(String deviceId, String token, String tenant) {
+    public EventRequestFactory(String deviceId, String token, String tenant) {
         super(deviceId, token, tenant);
         this.message = new EventPayload();
     }
