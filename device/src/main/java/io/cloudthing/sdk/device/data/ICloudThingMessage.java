@@ -6,8 +6,6 @@ package io.cloudthing.sdk.device.data;
 
 public interface ICloudThingMessage {
 
-    String toString();
-
-    byte[] toBytes();
+    byte[] toBytes() throws Exception;
 
 }
