@@ -49,7 +49,11 @@ public class ClientWrapper {
     }
 
     public void publish(String topic, ICloudThingMessage message) throws MqttException {
-        this.client.publish(topic, message.toBytes(), QUALITY_OF_SERVICE, RETAINED);
+        try {
+            this.client.publish(topic, message.toBytes(), QUALITY_OF_SERVICE, RETAINED);
+        } catch (Exception e) {
+            throw new MqttException(e);
+        }
     }
 
     public boolean isConnected() {

@@ -22,7 +22,7 @@ allprojects {
 
     sourceCompatibility = 1.7
     group 'io.cloudthing.sdk'
-    version '0.3.0-SNAPSHOT'
+    version '0.3.0'
 
     ext {
         isLibrary = false

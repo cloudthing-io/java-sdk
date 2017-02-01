@@ -25,9 +25,10 @@ public class JsonPayloadConverter implements IPayloadConverter {
 
     @Override
     public byte[] convert(IDataPayload payload) throws Exception {
+        keys.clear();
         JSONObject result = new JSONObject();
-        result.append("i", indexKeys(payload.getDataChunks()));
-        result.append("r", getRecords(payload.getDataChunks()));
+        result.put("i", indexKeys(payload.getDataChunks()));
+        result.put("r", getRecords(payload.getDataChunks()));
         return result.toString().getBytes("utf-8");
     }
 
@@ -57,20 +58,20 @@ public class JsonPayloadConverter implements IPayloadConverter {
 
     private JSONObject toJson(DataChunk chunk) {
         JSONObject result = new JSONObject();
-        result.append("k", keys.get(chunk.getKey()));
+        result.put("k", keys.get(chunk.getKey()));
         if (Strings.isNullOrEmpty(chunk.getValue())) {
             throw new IllegalStateException("Data chunks must have values set!");
         }
-        result.append("v", chunk.getValue());
+        result.put("v", chunk.getValue());
         if (chunk.hasTime()) {
             if (chunk.getDate() != null) {
-                result.append("t", chunk.getDate().getTime());
+                result.put("t", chunk.getDate().getTime()/1000);
             } else {
-                result.append("t", chunk.getTimeIncrement());
+                result.put("t", chunk.getTimeIncrement());
             }
         }
         if (chunk.hasGeo()) {
-            result.append("g", new JSONObject(chunk.getGeo()));
+            result.put("g", new JSONObject(chunk.getGeo()));
         }
         return result;
     }
