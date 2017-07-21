@@ -10,11 +10,11 @@ import java.util.Date;
  */
 public interface IDataPayload {
 
-    String add(String key, String value);
+    String add(String key, Object value);
 
-    String add(String key, String value, Date date);
+    String add(String key, Object value, Date date);
 
-    String add(String key, String value, long timeIncrement);
+    String add(String key, Object value, long timeIncrement);
 
     String add(DataChunk data);
 

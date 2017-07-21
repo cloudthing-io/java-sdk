@@ -59,7 +59,7 @@ public class JsonPayloadConverter implements IPayloadConverter {
     private JSONObject toJson(DataChunk chunk) {
         JSONObject result = new JSONObject();
         result.put("k", keys.get(chunk.getKey()));
-        if (Strings.isNullOrEmpty(chunk.getValue())) {
+        if (chunk.getValue()==null || Strings.isNullOrEmpty(chunk.getValue().toString())) {
             throw new IllegalStateException("Data chunks must have values set!");
         }
         result.put("v", chunk.getValue());
