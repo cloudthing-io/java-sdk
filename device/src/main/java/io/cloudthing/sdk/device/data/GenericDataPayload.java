@@ -13,21 +13,21 @@ public class GenericDataPayload implements ICloudThingMessage, IDataPayload {
     private IPayloadConverter converter;
 
     @Override
-    public String add(String key, String value) {
+    public String add(String key, Object value) {
         UUID id = UUID.randomUUID();
         dataMap.put(id.toString(), new DataChunk(key, value));
         return id.toString();
     }
 
     @Override
-    public String add(String key, String value, Date date) {
+    public String add(String key, Object value, Date date) {
         UUID id = UUID.randomUUID();
         dataMap.put(id.toString(), new DataChunk(key, value, date));
         return id.toString();
     }
 
     @Override
-    public String add(String key, String value, long timeIncrement) {
+    public String add(String key, Object value, long timeIncrement) {
         UUID id = UUID.randomUUID();
         dataMap.put(id.toString(), new DataChunk(key, value, timeIncrement));
         return id.toString();

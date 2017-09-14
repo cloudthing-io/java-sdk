@@ -10,24 +10,24 @@ import java.util.Map;
 public class DataChunk {
 
     private String key;
-    private String value;
+    private Object value;
     private Date date;
     private Long timeIncrement;
     private Double latitude;
     private Double longitude;
 
-    public DataChunk(String key, String value) {
+    public DataChunk(String key, Object value) {
         this.key = key;
         this.value = value;
     }
 
-    public DataChunk(String key, String value, Date date) {
+    public DataChunk(String key, Object value, Date date) {
         this.key = key;
         this.value = value;
         this.date = date;
     }
 
-    public DataChunk(String key, String value, Long timeIncrement) {
+    public DataChunk(String key, Object value, Long timeIncrement) {
         this.key = key;
         this.value = value;
         this.timeIncrement = timeIncrement;
@@ -41,11 +41,11 @@ public class DataChunk {
         this.key = key;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 
