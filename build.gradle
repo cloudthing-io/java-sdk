@@ -74,12 +74,12 @@ subprojects {
                             packaging project.pomPackaging
                             artifactId project.pomArtifactId
                             description project.pomDescription
-                            url 'https://github.com/cloudthing-io/android-sdk'
+                            url 'https://github.com/cloudthing-io/java-sdk'
 
                             scm {
-                                url 'scm:git@github.com:cloudthing-io/android-sdk.git'
-                                connection 'scm:git@github.com:cloudthing-io/android-sdk.git'
-                                developerConnection 'scm:git@github.com:cloudthing-io/android-sdk.git'
+                                url 'scm:git@github.com:cloudthing-io/java-sdk.git'
+                                connection 'scm:git@github.com:cloudthing-io/java-sdk.git'
+                                developerConnection 'scm:git@github.com:cloudthing-io/java-sdk.git'
                             }
 
                             licenses {
