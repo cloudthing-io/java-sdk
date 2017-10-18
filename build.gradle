@@ -22,7 +22,7 @@ allprojects {
 
     sourceCompatibility = 1.7
     group 'io.cloudthing.sdk'
-    version '0.3.3-SNAPSHOT'
+    version '0.3.3'
 
     ext {
         isLibrary = false
@@ -31,7 +31,7 @@ allprojects {
 
 subprojects {
     afterEvaluate { org.gradle.api.Project project ->
-        if(project.isLibrary && rootProject.hasProperty('sonatypeUser') && rootProject.hasProperty('sonatypePassword')) {
+        if (project.isLibrary && rootProject.hasProperty('sonatypeUser') && rootProject.hasProperty('sonatypePassword')) {
             configure(project) {
                 apply plugin: 'maven'
                 apply plugin: 'signing'
@@ -45,11 +45,11 @@ subprojects {
                         beforeDeployment { org.gradle.api.artifacts.maven.MavenDeployment deployment -> signing.signPom(deployment) }
 
                         repository(url: sonatypeRepo) {
-                            authentication(userName: sonatypeUser , password: sonatypePassword)
+                            authentication(userName: sonatypeUser, password: sonatypePassword)
                         }
 
                         snapshotRepository(url: sonatypeSnapshotRepo) {
-                            authentication(userName: sonatypeUser , password: sonatypePassword)
+                            authentication(userName: sonatypeUser, password: sonatypePassword)
                             snapshots(updatePolicy: 'always')
                         }
 
