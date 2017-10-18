@@ -6,10 +6,11 @@ import java.nio.charset.Charset;
  * Created by kleptoman on 18.12.16.
  */
 
-public class EventPayload implements ICloudThingMessage {
+public class EventPayload implements ICloudThingMessage, IEventPayload {
 
-    private String eventId = "";
-    private String payload = "";
+    private String eventId;
+    private String payload;
+    private byte[] bytes;
 
     public String getPayload() {
         return payload;
@@ -17,8 +18,20 @@ public class EventPayload implements ICloudThingMessage {
 
     public void setPayload(String payload) {
         this.payload = payload;
+        this.bytes = null;
     }
 
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    @Override
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+        this.payload = null;
+    }
+
+    @Override
     public String getEventId() {
         return eventId;
     }
@@ -27,13 +40,18 @@ public class EventPayload implements ICloudThingMessage {
         this.eventId = eventId;
     }
 
+    public boolean isPureBytes() {
+        return bytes != null;
+    }
+
+
     @Override
     public String toString() {
-        return payload;
+        return isPureBytes() ? new String(bytes, Charset.forName("UTF-8")) : payload;
     }
 
     @Override
     public byte[] toBytes() {
-        return this.toString().getBytes(Charset.forName("UTF-8"));
+        return isPureBytes() ? bytes : payload.getBytes(Charset.forName("UTF-8"));
     }
 }

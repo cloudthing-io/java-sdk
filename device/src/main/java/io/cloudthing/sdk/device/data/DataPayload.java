@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by kleptoman on 29.11.16.
  */
-
+@Deprecated
 public final class DataPayload implements ICloudThingMessage {
 
     private static final String BODY_TEMPLATE = "{\"r\":[%s]}";
