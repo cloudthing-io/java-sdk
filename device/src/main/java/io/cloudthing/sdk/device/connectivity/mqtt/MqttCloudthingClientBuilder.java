@@ -20,6 +20,7 @@ public class MqttCloudthingClientBuilder {
     private String tenant;
     private String deviceId;
     private String token;
+    private String clientId;
     private boolean secure = false;
     private boolean cleanSession = true;
     private int qos = 0;
@@ -34,7 +35,10 @@ public class MqttCloudthingClientBuilder {
 
     public IMqttCloudthingClient build() throws MqttException {
         validate();
-        MqttClient mqttClient = new MqttClient(getBrokerUri(), MqttClient.generateClientId(), new MemoryPersistence());
+        if (clientId == null) {
+            clientId = MqttClient.generateClientId();
+        }
+        MqttClient mqttClient = new MqttClient(getBrokerUri(), clientId, new MemoryPersistence());
         MqttCloudthingClient cloudthingClient = new MqttCloudthingClient(mqttClient, generateOptions());
         cloudthingClient.setQos(qos);
         if (defaultTopic != null && !"".equals(defaultTopic)) {
@@ -58,6 +62,11 @@ public class MqttCloudthingClientBuilder {
 
     public MqttCloudthingClientBuilder setToken(String token) {
         this.token = token;
+        return this;
+    }
+
+    public MqttCloudthingClientBuilder setClientId(String clientId) {
+        this.clientId = clientId;
         return this;
     }
 
