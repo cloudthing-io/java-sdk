@@ -21,6 +21,7 @@ public class MqttCloudthingClientBuilder {
     private String deviceId;
     private String token;
     private boolean secure = false;
+    private boolean cleanSession = true;
     private int qos = 0;
     private String defaultTopic;
     private String serverTemplate = "{tenant}.cloudthing.io";
@@ -91,6 +92,11 @@ public class MqttCloudthingClientBuilder {
         return this;
     }
 
+    public MqttCloudthingClientBuilder setCleanSession(boolean cleanSession) {
+        this.cleanSession = cleanSession;
+        return this;
+    }
+
     private String getBrokerUri() {
         String prefix = secure ? URI_PREFIX_SECURE : URI_PREFIX;
         return String.format(BROKER_TEMPLATE, prefix, getServerName(), serverPort);
@@ -104,7 +110,7 @@ public class MqttCloudthingClientBuilder {
         MqttConnectOptions connectOptions = new MqttConnectOptions();
         connectOptions.setUserName(this.tenant + ":" + deviceId);
         connectOptions.setPassword(token.toCharArray());
-        connectOptions.setCleanSession(true);
+        connectOptions.setCleanSession(cleanSession);
         connectOptions.setConnectionTimeout(30);
         return connectOptions;
     }
