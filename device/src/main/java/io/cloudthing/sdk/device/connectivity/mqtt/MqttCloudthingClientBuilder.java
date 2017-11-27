@@ -35,7 +35,7 @@ public class MqttCloudthingClientBuilder {
 
     public IMqttCloudthingClient build() throws MqttException {
         validate();
-        if (clientId == null) {
+        if (clientId == null || "".equals(clientId)) {
             clientId = MqttClient.generateClientId();
         }
         MqttClient mqttClient = new MqttClient(getBrokerUri(), clientId, new MemoryPersistence());
